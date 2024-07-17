@@ -1,10 +1,15 @@
 import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
-import { getAllProjects } from "./src/services/project.js";
+import { addNewProject, getAllProjects } from "./src/services/project.js";
 import typeDefs from "./schema.js";
 const resolvers = {
     Query: {
         projects: () => getAllProjects(),
+    },
+    Mutation: {
+        newProject: async (_, { project }) => {
+            return addNewProject(project);
+        },
     },
 };
 const server = new ApolloServer({
@@ -12,5 +17,5 @@ const server = new ApolloServer({
     resolvers,
 });
 const { url } = await startStandaloneServer(server, {
-    listen: { port: parseInt(process.env.PORT) || 4000 },
+    listen: { port: 4000 },
 });

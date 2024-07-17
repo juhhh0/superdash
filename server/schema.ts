@@ -7,6 +7,15 @@ type Project {
 type Query {
     projects: [Project]
 }
+
+type Mutation {
+  newProject(project: NewProjectInput!): Project
+}
+
+input NewProjectInput {
+  title: String!
+  description: String
+}
 `;
 
 export default typeDefs;

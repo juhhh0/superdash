@@ -1,11 +1,16 @@
 import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
-import { getAllProjects } from "./src/services/project.js";
+import { addNewProject, getAllProjects } from "./src/services/project.js";
 import typeDefs from "./schema.js";
 
 const resolvers = {
   Query: {
     projects: () => getAllProjects(),
+  },
+  Mutation: {
+    newProject: async (_, { project }) => {
+      return addNewProject(project);
+    },
   },
 };
 
